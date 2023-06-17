@@ -3,32 +3,30 @@
 	src: url(/craftmincho.otf);
 }
 
-.background{
-    position: absolute;
-    z-index: 1;
+.background {
+	position: absolute;
+	z-index: 1;
 }
 
-.ranking{
-    transform: translate(-50%, -50%);
-    font-family: クラフト明朝;
-    /* font-size: 200%; */
-    text-shadow:1px 1px 0 #FFF, -1px -1px 0 #FFF,
-                -1px 1px 0 #FFF, 1px -1px 0 #FFF,
-                0px 1px 0 #FFF,  0-1px 0 #FFF,
-                -1px 0 0 #FFF, 1px 0 0 #FFF;
-    text-align: center;
-    vertical-align: middle;
-    position: absolute;
-    z-index: 2;
-    color: 'black';
+.ranking {
+	transform: translate(-50%, -50%);
+	font-family: クラフト明朝;
+	/* font-size: 200%; */
+	text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, -1px 1px 0 #fff, 1px -1px 0 #fff, 0px 1px 0 #fff,
+		0-1px 0 #fff, -1px 0 0 #fff, 1px 0 0 #fff;
+	text-align: center;
+	vertical-align: middle;
+	position: absolute;
+	z-index: 2;
+	color: 'black';
 }
 
-.rankImg{
-    position: relative;
-    z-index: 2;
+.rankImg {
+	position: relative;
+	z-index: 2;
 }
 
-.btn{
-    position: absolute;
-    z-index: 2;
+.btn {
+	position: absolute;
+	z-index: 2;
 }

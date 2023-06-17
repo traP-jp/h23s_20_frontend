@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react'
 import Evaluation from '@/components/evaluation'
 import Ranking from '@/components/ranking'
 import Setting from '@/components/setting'
+import Tree from '@/components/Tree'
 import UserID from '@/components/userID'
+import { useGetWindowSize } from '@/hooks/useGetWindowSize'
 import styles from '@/styles/Home.module.css'
-import { Tree } from '@/types/tree'
+import { Tree as TreeType } from '@/types/tree'
 import { User } from '@/types/user'
-
-import { GetWindowSize as getWindowSize } from '../hooks/GetWindowSize'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,22 +25,13 @@ export const getRandomString = (n: number): string => {
 }
 
 export default function Home() {
-	const [userID, setUserID] = useState<User[]>([])
-	const { width, height } = getWindowSize()
-	const [data, setData] = useState<Tree[]>([])
-	const totalPoint = data.reduce((a, b) => a + b.point, 0)
+	const [myTree, setMyTree] = useState<TreeType[]>([])
+	const [users, setUsers] = useState<User[]>([])
+	const { width, height } = useGetWindowSize()
+	const totalPoint = myTree.reduce((a, b) => a + b.point, 0)
 
-	useEffect(() => {
-		;(async () => {
-			const res = await axios.get<User[]>('http://localhost:8000/users')
-			setUserID(res.data)
-			const res2 = await axios.get<Tree[]>('http://localhost:8000/userID/tree')
-			setData(res2.data)
-		})()
-	}, [])
-
-	const userId = userID.map(item => {
-		return item.id
+	const userIds = users.map(user => {
+		return user.id
 	})
 
 	const handleCopy = () => {
@@ -54,6 +45,18 @@ export default function Home() {
 		)
 	}
 
+	useEffect(() => {
+		;(async () => {
+			const usersRes = await axios.get<User[]>('http://localhost:8000/users')
+			const treeRes = await axios.get<TreeType[]>('http://localhost:8000/userID/tree')
+			// todo: Promise.all使うとバグる
+			setUsers(usersRes.data)
+			setMyTree(treeRes.data)
+		})()
+	}, [])
+
+	console.log(myTree)
+
 	return (
 		<>
 			<Head>
@@ -63,10 +66,11 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={`${styles.main} ${inter.className}`}>
+				<Tree tree={myTree} />
 				<div>
 					<Setting />
 					<Ranking />
-					<UserID users={userId} />
+					<UserID users={userIds} />
 					<Evaluation />
 				</div>
 				<div
