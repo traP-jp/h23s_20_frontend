@@ -2,7 +2,7 @@ import { Stage, Graphics } from '@pixi/react'
 import * as PIXI from 'pixi.js'
 
 import { branchDrawConstructor } from '@/components/Tree/branch'
-import { Leaf, LeafColor } from '@/types/tree'
+import { Leaf, LeafColor, Tree as TreeType } from '@/types/tree'
 
 const getRandomArbitrary = (min: number, max: number) => {
 	return Math.floor(Math.random() * (max - min) + min)
@@ -43,7 +43,7 @@ const mockLeaves: Leaf[] = Array(30)
 		size: 'middle',
 	}))
 
-export default function Tree() {
+export default function Tree({ tree }: { tree: TreeType }) {
 	const leafDrawConstructor = (leaf: Leaf) => {
 		const leafData = {
 			...leaf,
@@ -89,7 +89,7 @@ export default function Tree() {
 			}}
 		>
 			<Graphics x={400 - 10} y={600} draw={branchDrawConstructor(14)} zIndex={5} />
-			{mockLeaves.map(leaf => (
+			{tree.leaves.map(leaf => (
 				<Graphics
 					x={400 - 10}
 					y={600}

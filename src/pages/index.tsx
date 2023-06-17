@@ -1,12 +1,25 @@
+import axios from 'axios'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 
 import Tree from '@/components/Tree'
 import styles from '@/styles/Home.module.css'
+import { Tree as TreeType } from '@/types/tree'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+	const [myTree, setMyTree] = useState<TreeType>()
+	useEffect(() => {
+		;(async () => {
+			const res = await axios.get('https://mehm8128-example.com/mehm8128/tree')
+			setMyTree(res.data)
+		})()
+	}, [])
+
+	if (!myTree) return <div>loading...</div>
+
 	return (
 		<>
 			<Head>
@@ -16,7 +29,7 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={`${styles.main} ${inter.className}`}>
-				<Tree />
+				<Tree tree={myTree} />
 			</main>
 		</>
 	)
