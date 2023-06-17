@@ -2,10 +2,24 @@ import { Inter } from 'next/font/google'
 import Head from 'next/head'
 
 import styles from '@/styles/Home.module.css'
+import { useEffect, useRef,useState } from "react"
+import axios from "axios"
+import { Tree } from "@/types/tree"
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+	const  [data, setData] = useState<Tree[]>([]);
+	const totalPoint = data.reduce((a,b)=>a+b.point,0)
+
+    useEffect(()=>{
+        const fetch=async ()=>{
+            const res=await axios.get<Tree[]>("http://localhost:8000/userID/tree")
+            setData(res.data);
+        }
+        fetch();
+    },[])
+
 	return (
 		<>
 			<Head>
@@ -14,7 +28,9 @@ export default function Home() {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<main className={`${styles.main} ${inter.className}`}></main>
+			<main className={`${styles.main} ${inter.className}`}>
+			<div className={styles.total}>{totalPoint}pt</div>
+			</main>
 		</>
 	)
 }
