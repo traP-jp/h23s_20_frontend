@@ -7,6 +7,7 @@ export const treeHanlders = (apiOrigin: string) => {
 		return res(
 			ctx.status(200),
 			ctx.json({
+				point: getRandomArbitrary(30, 1000),
 				branch_count: 2,
 				leaves: Array(30)
 					.fill(null)

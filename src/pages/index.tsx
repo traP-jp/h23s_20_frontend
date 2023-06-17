@@ -1,24 +1,63 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import { Button, toaster } from 'evergreen-ui'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 
+import Evaluation from '@/components/evaluation'
+import Ranking from '@/components/ranking'
+import Setting from '@/components/setting'
 import Tree from '@/components/Tree'
+import UserID from '@/components/userID'
+import { useGetWindowSize } from '@/hooks/useGetWindowSize'
 import styles from '@/styles/Home.module.css'
 import { Tree as TreeType } from '@/types/tree'
+import { User } from '@/types/user'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const getRandomString = (n: number): string => {
+	const S = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+	return Array.from(crypto.getRandomValues(new Uint32Array(n)))
+		.map(v => S[v % S.length])
+		.join('')
+}
+
 export default function Home() {
-	const [myTree, setMyTree] = useState<TreeType>()
+	const [myTree, setMyTree] = useState<TreeType[]>([])
+	const [users, setUsers] = useState<User[]>([])
+	const { width, height } = useGetWindowSize()
+	const totalPoint = myTree.reduce((a, b) => a + b.point, 0)
+
 	useEffect(() => {
 		;(async () => {
-			const res = await axios.get('https://mehm8128-example.com/mehm8128/tree')
-			setMyTree(res.data)
+			const usersPromise = axios.get<User[]>('http://localhost:8000/users')
+			const treePromise = axios.get<TreeType[]>('http://localhost:8000/userID/tree')
+			const promises: [
+				Promise<AxiosResponse<User[], any>>,
+				Promise<AxiosResponse<TreeType[], any>>,
+			] = [usersPromise, treePromise]
+			const [usersRes, treeRes] = await Promise.all(promises)
+			setUsers(usersRes.data)
+			setMyTree(treeRes.data)
 		})()
 	}, [])
 
-	if (!myTree) return <div>loading...</div>
+	const userIds = users.map(user => {
+		return user.id
+	})
+
+	const handleCopy = () => {
+		navigator.clipboard.writeText(`http://localhost:3000/userID/${getRandomString(16)}`).then(
+			function () {
+				toaster.success('共有リンクがクリップボードにコピーされました！')
+			},
+			function (err) {
+				toaster.warning('コピーに失敗しました')
+			},
+		)
+	}
 
 	return (
 		<>
@@ -30,6 +69,23 @@ export default function Home() {
 			</Head>
 			<main className={`${styles.main} ${inter.className}`}>
 				<Tree tree={myTree} />
+				<div>
+					<Setting />
+					<Ranking />
+					<UserID users={userIds} />
+					<Evaluation />
+				</div>
+				<div
+					className={styles.total}
+					style={{
+						fontSize: `${width / 6}%`,
+					}}
+				>
+					{totalPoint}pt
+				</div>
+				<Button className={styles.shareBtn} onClick={handleCopy}>
+					Share
+				</Button>
 			</main>
 		</>
 	)

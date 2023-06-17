@@ -6,10 +6,10 @@ import { handlers } from './handlers'
 export const initMock = () => {
 	if (process.env.NODE_ENV === 'development') {
 		if (typeof window !== 'undefined') {
-			const worker = setupWorker(...handlers('https://mehm8128-example.com'))
+			const worker = setupWorker(...handlers('http://localhost:8000'))
 			worker.start()
 		} else {
-			const server = setupServer(...handlers('https://mehm8128-example.com'))
+			const server = setupServer(...handlers('http://localhost:8000'))
 			server.listen()
 		}
 	}

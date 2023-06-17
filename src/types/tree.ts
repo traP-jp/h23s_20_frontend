@@ -8,6 +8,7 @@ export interface Leaf {
 }
 
 export interface Tree {
+	point: number
 	branchCount: number
 	leaves: Leaf[]
 }
