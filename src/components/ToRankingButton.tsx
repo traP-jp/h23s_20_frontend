@@ -1,10 +1,12 @@
-import { Button } from 'evergreen-ui'
+import { Button, CrownIcon } from 'evergreen-ui'
 import Link from 'next/link'
 
-export default function ToRankingButton() {
+export default function RankingButton() {
 	return (
-		<Button intent='ranking'>
-			<Link href='/ranking'>ランキングへ</Link>
-		</Button>
+		<Link href='/ranking'>
+			<Button intent='ranking'>
+				<CrownIcon />
+			</Button>
+		</Link>
 	)
 }

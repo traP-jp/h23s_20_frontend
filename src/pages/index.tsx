@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Button, toaster } from 'evergreen-ui'
+import { Button, toaster, SettingsIcon, ShareIcon } from 'evergreen-ui'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
@@ -65,26 +65,32 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={`${styles.main} ${inter.className}`}>
-				<div>
+				<div className={styles.topTools}>
 					<div
-						className={styles.total}
+						className={styles.totalPoint}
 						style={{
 							fontSize: `${width / 6}%`,
 						}}
 					>
 						{totalPoint}pt
 					</div>
-					<div>
-						<SettingModal />
-						<ToRankingButton />
+					<div className={styles.tools}>
+						<div className={styles.toolButtons}>
+							<ToRankingButton />
+							<Button onClick={() => setIsShown(true)}>
+								<SettingsIcon />
+							</Button>
+							<Button onClick={handleCopy}>
+								<ShareIcon />
+							</Button>
+						</div>
 						<SearchComboBox users={userIds} />
-						<Button onClick={() => setIsShown(true)}>設定を開く</Button>
-						<Button onClick={handleCopy}>Share</Button>
 						<SettingModal isShown={isShown} setIsShown={setIsShown} />
 					</div>
 				</div>
-				<Tree tree={myTree} />
-
+				<div className={styles.tree}>
+					<Tree tree={myTree} />
+				</div>
 				<ProgressButtons />
 			</main>
 		</>
