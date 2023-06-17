@@ -4,8 +4,13 @@ import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 
+import Evaluation from '@/components/evaluation'
+import Ranking from '@/components/ranking'
+import Setting from '@/components/setting'
+import UserID from '@/components/userID'
 import styles from '@/styles/Home.module.css'
 import { Tree } from '@/types/tree'
+import { User } from '@/types/user'
 
 import { GetWindowSize as getWindowSize } from '../hooks/GetWindowSize'
 
@@ -20,17 +25,34 @@ export const getRandomString = (n: number): string => {
 }
 
 export default function Home() {
+	const [userID, setUserID] = useState<User[]>([])
 	const { width, height } = getWindowSize()
 	const [data, setData] = useState<Tree[]>([])
 	const totalPoint = data.reduce((a, b) => a + b.point, 0)
 
 	useEffect(() => {
-		const fetch = async () => {
-			const res = await axios.get<Tree[]>('http://localhost:8000/userID/tree')
-			setData(res.data)
-		}
-		fetch()
+		;(async () => {
+			const res = await axios.get<User[]>('http://localhost:8000/users')
+			setUserID(res.data)
+			const res2 = await axios.get<Tree[]>('http://localhost:8000/userID/tree')
+			setData(res2.data)
+		})()
 	}, [])
+
+	const userId = userID.map(item => {
+		return item.id
+	})
+
+	const handleCopy = () => {
+		navigator.clipboard.writeText(`http://localhost:3000/userID/${getRandomString(16)}`).then(
+			function () {
+				toaster.success('共有リンクがクリップボードにコピーされました！')
+			},
+			function (err) {
+				toaster.warning('コピーに失敗しました')
+			},
+		)
+	}
 
 	return (
 		<>
@@ -41,6 +63,12 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={`${styles.main} ${inter.className}`}>
+				<div>
+					<Setting />
+					<Ranking />
+					<UserID users={userId} />
+					<Evaluation />
+				</div>
 				<div
 					className={styles.total}
 					style={{
@@ -49,21 +77,7 @@ export default function Home() {
 				>
 					{totalPoint}pt
 				</div>
-				<Button
-					className={styles.shareBtn}
-					onClick={() => {
-						navigator.clipboard
-							.writeText(`http://localhost:3000/userID/${getRandomString(16)}`)
-							.then(
-								function () {
-									toaster.success('共有リンクがクリップボードにコピーされました！')
-								},
-								function (err) {
-									toaster.warning('コピーに失敗しました')
-								},
-							)
-					}}
-				>
+				<Button className={styles.shareBtn} onClick={handleCopy}>
 					Share
 				</Button>
 			</main>
