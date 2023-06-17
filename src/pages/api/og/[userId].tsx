@@ -2,7 +2,7 @@ import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 
 export const config = {
-	runtime: 'experimental-edge',
+	runtime: 'edge',
 }
 
 export default async function handler(request: NextRequest) {
@@ -32,6 +32,7 @@ export default async function handler(request: NextRequest) {
 				}}
 			>
 				<img width='256' height='256' src={`https://q.trap.jp/api/v3/public/icon/${userId}`} />
+				<p>hello, I am a yonger sister of the OGP.</p>
 			</div>
 		),
 		{
