@@ -1,3 +1,4 @@
+import { b } from 'msw/lib/glossary-de6278a9'
 import * as PIXI from 'pixi.js'
 
 const TRUNC_LENGTH = 100
@@ -7,19 +8,19 @@ export const branchDrawConstructor = (branchCount: number) => {
 	const topCount = Math.ceil(branchCount / 6)
 	return (g: PIXI.Graphics) => {
 		if (0 <= branchCount) {
-			branchConstructor1(g)
+			branchConstructor1(g, branchCount)
 		}
 		if (7 <= branchCount) {
-			branchConstructor(g, 1)
+			branchConstructor(g, 1, branchCount)
 		}
 		if (13 <= branchCount) {
-			branchConstructor(g, 2)
+			branchConstructor(g, 2, branchCount)
 		}
 		if (19 <= branchCount) {
-			branchConstructor(g, 3)
+			branchConstructor(g, 3, branchCount)
 		}
 		if (25 <= branchCount) {
-			branchConstructor(g, 4)
+			branchConstructor(g, 4, branchCount)
 		}
 
 		//幹最上部
@@ -33,8 +34,12 @@ export const branchDrawConstructor = (branchCount: number) => {
 	}
 }
 
-const branchConstructor1 = (g: PIXI.Graphics) => {
-	g.beginFill('#F2BA65')
+const branchConstructor1 = (g: PIXI.Graphics, b: number) => {
+	if (b === 14) {
+		g.beginFill('#F2BA65')
+	} else {
+		g.beginFill('#000000')
+	}
 	//幹
 	g.moveTo(-20, 0)
 	g.lineTo(20, 0)
@@ -44,8 +49,12 @@ const branchConstructor1 = (g: PIXI.Graphics) => {
 	g.endFill()
 }
 
-const branchConstructor = (g: PIXI.Graphics, num: number) => {
-	g.beginFill('#F2BA65')
+const branchConstructor = (g: PIXI.Graphics, num: number, b: number) => {
+	if (b === 14) {
+		g.beginFill('#F2BA65')
+	} else {
+		g.beginFill('#000000')
+	}
 	//幹
 	g.moveTo(-20, -num * TRUNC_LENGTH)
 	g.lineTo(20, -num * TRUNC_LENGTH)

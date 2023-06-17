@@ -9,6 +9,6 @@ export interface Leaf {
 
 export interface Tree {
 	point: number
-	branchCount: number
+	branch_count: number
 	leaves: Leaf[]
 }

@@ -26,10 +26,10 @@ export const getRandomString = (n: number): string => {
 
 export default function Home() {
 	const [isShown, setIsShown] = useState(false)
-	const [myTree, setMyTree] = useState<TreeType[]>([])
+	const [myTrees, setMyTrees] = useState<TreeType[]>([])
 	const [users, setUsers] = useState<User[]>([])
 	const { width, height } = useGetWindowSize()
-	const totalPoint = myTree.reduce((a, b) => a + b.point, 0)
+	const totalPoint = myTrees.reduce((a, b) => a + b.point, 0)
 
 	const userIds = users.map(user => {
 		return user.id
@@ -52,7 +52,7 @@ export default function Home() {
 			const treeRes = await axios.get<TreeType[]>('http://localhost:8000/userID/tree')
 			// todo: Promise.all使うとバグる
 			setUsers(usersRes.data)
-			setMyTree(treeRes.data)
+			setMyTrees(treeRes.data)
 		})()
 	}, [])
 
@@ -89,7 +89,7 @@ export default function Home() {
 					</div>
 				</div>
 				<div className={styles.tree}>
-					<Tree tree={myTree} />
+					<Tree trees={myTrees} />
 				</div>
 				<ProgressButtons />
 			</main>

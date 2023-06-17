@@ -9,7 +9,19 @@ export const treeHanlders = (apiOrigin: string) => {
 			ctx.json([
 				{
 					point: getRandomArbitrary(30, 1000),
-					branch_count: 2,
+					branch_count: 14,
+					leaves: Array(1)
+						.fill(null)
+						.map(() => ({
+							x: getRandomArbitrary(-200, 200),
+							y: getRandomArbitrary(200, 800),
+							color: getRandomColor(),
+							size: 'middle',
+						})),
+				},
+				{
+					point: getRandomArbitrary(30, 1000),
+					branch_count: 13,
 					leaves: Array(30)
 						.fill(null)
 						.map(() => ({
