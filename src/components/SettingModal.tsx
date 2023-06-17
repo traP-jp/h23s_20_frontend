@@ -4,6 +4,8 @@ import { useState } from 'react'
 
 import { PointType, Setting as SettingType } from '@/types/setting'
 
+import { getApiOrigin } from '../../env'
+
 export default function SettingModal({
 	isShown,
 	setIsShown,
@@ -25,7 +27,7 @@ export default function SettingModal({
 			github_point_type: githubPoint,
 			atcoder_point_type: atcoderPoint,
 		}
-		const res = await axios.put('http://localhost:8000/me/config', requestData)
+		const res = await axios.put(`${getApiOrigin()}/me/config`, requestData)
 	}
 	return (
 		<Dialog

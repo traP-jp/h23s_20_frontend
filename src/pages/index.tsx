@@ -14,6 +14,8 @@ import styles from '@/styles/Home.module.css'
 import { Tree as TreeType } from '@/types/tree'
 import { User } from '@/types/user'
 
+import { getApiOrigin } from '../../env'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const getRandomString = (n: number): string => {
@@ -37,6 +39,7 @@ export default function Home() {
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(`http://localhost:3000/userID/${getRandomString(16)}`).then(
+			// todo:host
 			function () {
 				toaster.success('共有リンクがクリップボードにコピーされました！')
 			},
@@ -48,8 +51,8 @@ export default function Home() {
 
 	useEffect(() => {
 		;(async () => {
-			const usersRes = await axios.get<User[]>('http://localhost:8000/users')
-			const treeRes = await axios.get<TreeType[]>('http://localhost:8000/userID/tree')
+			const usersRes = await axios.get<User[]>(`${getApiOrigin()}/users`)
+			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/userID/tree`)
 			// todo: Promise.all使うとバグる
 			setUsers(usersRes.data)
 			setMyTree(treeRes.data)

@@ -5,9 +5,10 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import { useGetWindowSize } from '@/hooks/useGetWindowSize'
+import styles from '@/styles/Ranking.module.css'
 import { Ranking as RankingType } from '@/types/ranking'
 
-import styles from '@/styles/Ranking.module.css'
+import { getApiOrigin } from '../../env'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,7 @@ export default function Ranking() {
 
 	useEffect(() => {
 		const fetch = async () => {
-			const res = await axios.get<RankingType[]>('http://localhost:8000/ranking')
+			const res = await axios.get<RankingType[]>(`${getApiOrigin()}/ranking`)
 			setRanking(res.data)
 		}
 		fetch()
