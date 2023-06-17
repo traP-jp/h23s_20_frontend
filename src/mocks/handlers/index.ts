@@ -1,6 +1,7 @@
 import { RestHandler } from 'msw'
 
 import { sampleHanlders } from '@/mocks/handlers/sample'
+
 import { treeHanlders } from './tree'
 
 export function getHandlersArray(handlers: Record<string, RestHandler>): RestHandler[] {
@@ -8,7 +9,8 @@ export function getHandlersArray(handlers: Record<string, RestHandler>): RestHan
 }
 
 export function handlers(apiOrigin: string) {
-	return [getHandlersArray(sampleHanlders(apiOrigin)),
-	getHandlersArray(treeHanlders(apiOrigin))
+	return [
+		getHandlersArray(sampleHanlders(apiOrigin)),
+		getHandlersArray(treeHanlders(apiOrigin)),
 	].flat()
 }

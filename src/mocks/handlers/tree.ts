@@ -5,47 +5,47 @@ export const treeHanlders = (apiOrigin: string) => {
 		return res(
 			ctx.status(200),
 			ctx.json([
-                {
-                    point: 100000,
-                    branch_count: 5,
-                    leaves: {
-                        x: 3,
-                        y: 5,
-                        color: "green",
-                        size: "small"
-                    }
-                },
-                {
-                    point: 400000,
-                    branch_count: 5,
-                    leaves: {
-                        x: 3,
-                        y: 5,
-                        color: "green",
-                        size: "small"
-                    }
-                },
-                {
-                    point: 500000,
-                    branch_count: 5,
-                    leaves: {
-                        x: 3,
-                        y: 5,
-                        color: "green",
-                        size: "small"
-                    }
-                },
-                {
-                    point: 200000,
-                    branch_count: 5,
-                    leaves: {
-                        x: 3,
-                        y: 5,
-                        color: "green",
-                        size: "small"
-                    }
-                },
-            ])
+				{
+					point: 100000,
+					branch_count: 5,
+					leaves: {
+						x: 3,
+						y: 5,
+						color: 'green',
+						size: 'small',
+					},
+				},
+				{
+					point: 400000,
+					branch_count: 5,
+					leaves: {
+						x: 3,
+						y: 5,
+						color: 'green',
+						size: 'small',
+					},
+				},
+				{
+					point: 500000,
+					branch_count: 5,
+					leaves: {
+						x: 3,
+						y: 5,
+						color: 'green',
+						size: 'small',
+					},
+				},
+				{
+					point: 200000,
+					branch_count: 5,
+					leaves: {
+						x: 3,
+						y: 5,
+						color: 'green',
+						size: 'small',
+					},
+				},
+			]),
 		)
 	})
 
