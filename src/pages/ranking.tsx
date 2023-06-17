@@ -62,7 +62,6 @@ export default function Ranking() {
                     <div className="point">{item.points}pt</div>
                 </div>
             ))}
-            {/* <Link href="./" className={styles.btn}><img src="/home_back.png" height={Math.min(height/500, width/400)} width={Math.min(height/500, width/400)}></img></Link> */}
 
             <Link className={styles.btn} href="./">
                 <Image
