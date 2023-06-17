@@ -23,6 +23,11 @@
     color: 'black';
 }
 
+.rankImg{
+    position: relative;
+    z-index: 2;
+}
+
 .btn{
     position: absolute;
     z-index: 2;

@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"] })
 export default function Ranking() {
     const { height, width } = GetWindowSize();
 
-    const top = [30, 19, 33, 14, 70, 76, 70, 68];
+    const top = [28, 17, 31, 12, 68, 74, 68, 66];
     const left = [18, 42, 63.5, 84.5, 17, 33, 66, 90];
 
     const  [data, setData] = useState<Ranking[]>();
@@ -82,6 +82,15 @@ export default function Ranking() {
                     left: `${left[index]}%`,
                     fontSize: `${width/6}%`,
                 }} id={"rank" + (index + 1)} key={item.user_id}>
+                    <div className="img">
+                        <Image
+                            className={styles.rankImg}
+                            src={"/rank" + (index + 1) + ".png"}
+                            alt={"rank " + (index + 1)}
+                            height={width/20*96/110}
+                            width={width/20}
+                        />
+                    </div>
                     <div className="id">{item.user_id}</div>
                     <div className="point">{item.points}pt</div>
                 </div>
@@ -93,7 +102,6 @@ export default function Ranking() {
                     className={styles.btmImg}
                     src="/home_back.png"
                     alt="homeBtn"
-                    
                     height={height / 6 > width / 6 * 357 / 551 ? width / 6 * 357 / 551 : height / 6}
                     width={height / 6 > width / 6 * 357 / 551 ?  width / 6 : height / 6 * 551 / 357}
                 />
