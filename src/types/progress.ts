@@ -1,5 +1,5 @@
 export type PointType = 'one' | 'three' | 'five'
 
-export interface Evaluation {
+export interface Progress {
 	point_type: PointType
 }

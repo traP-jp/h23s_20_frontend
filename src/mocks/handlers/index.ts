@@ -3,7 +3,7 @@ import { RestHandler } from 'msw'
 import { sampleHanlders } from '@/mocks/handlers/sample'
 import { treeHanlders } from '@/mocks/handlers/tree'
 
-import { evaluationHandlers } from './evaluation'
+import { progressHandlers } from './progress'
 import { rankingHanlders } from './ranking'
 import { settingHandlers } from './setting'
 import { usersHandlers } from './user'
@@ -18,7 +18,7 @@ export function handlers(apiOrigin: string) {
 		getHandlersArray(treeHanlders(apiOrigin)),
 		getHandlersArray(settingHandlers(apiOrigin)),
 		getHandlersArray(usersHandlers(apiOrigin)),
-		getHandlersArray(evaluationHandlers(apiOrigin)),
+		getHandlersArray(progressHandlers(apiOrigin)),
 		getHandlersArray(rankingHanlders(apiOrigin)),
 	].flat()
 }
