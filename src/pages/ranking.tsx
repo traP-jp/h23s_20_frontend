@@ -7,14 +7,15 @@ import styles from "@/styles/ranking.module.css"
 import { useEffect, useRef,useState } from "react"
 import axios from "axios"
 import {Ranking} from "@/types/ranking"
+import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export default function Ranking() {
     const { height, width } = GetWindowSize();
 
-    const top = [35, 15, 38, 12, 70, 80, 78, 82];
-    const left = [7, 30, 60, 76, 4.5, 25, 56, 81.5];
+    const top = [30, 19, 33, 14, 70, 76, 70, 68];
+    const left = [18, 42, 63.5, 84.5, 17, 33, 66, 90];
 
     const  [data, setData] = useState<Ranking[]>();
 
@@ -68,7 +69,7 @@ export default function Ranking() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={`${styles.main} ${inter.className}`}>
-            <Image
+            <img
                 className={styles.background}
                 src="/background.png"
                 alt="background tree"
@@ -79,11 +80,24 @@ export default function Ranking() {
                 <div className={styles.ranking} style={{
                     top: `${top[index]}%`,
                     left: `${left[index]}%`,
+                    fontSize: `${width/6}%`,
                 }} id={"rank" + (index + 1)} key={item.user_id}>
                     <div className="id">{item.user_id}</div>
                     <div className="point">{item.points}pt</div>
                 </div>
             ))}
+            {/* <Link href="./" className={styles.btn}><img src="/home_back.png" height={Math.min(height/500, width/400)} width={Math.min(height/500, width/400)}></img></Link> */}
+
+            <Link className={styles.btn} href="./">
+                <Image
+                    className={styles.btmImg}
+                    src="/home_back.png"
+                    alt="homeBtn"
+                    
+                    height={height / 6 > width / 6 * 357 / 551 ? width / 6 * 357 / 551 : height / 6}
+                    width={height / 6 > width / 6 * 357 / 551 ?  width / 6 : height / 6 * 551 / 357}
+                />
+            </Link>
         </main>
     </>
 	)
