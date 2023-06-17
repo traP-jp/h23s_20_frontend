@@ -6,7 +6,7 @@ import { GetWindowSize } from "./GetWindowSize"
 import styles from "@/styles/ranking.module.css"
 import { useEffect, useRef,useState } from "react"
 import axios from "axios"
-import {Ranking} from "@/types/ranking"
+import {Ranking as RankingType} from "@/types/ranking"
 import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -17,45 +17,12 @@ export default function Ranking() {
     const top = [28, 17, 31, 12, 68, 74, 68, 66];
     const left = [18, 42, 63.5, 84.5, 17, 33, 66, 90];
 
-    const  [data, setData] = useState<Ranking[]>();
+    const  [data, setData] = useState<RankingType[]>();
 
     useEffect(()=>{
         const fetch=async ()=>{
-            const res=[
-                {
-                    user_id:"mehm8128",
-                    points:100
-                },
-                {
-                    user_id:"mehm8128",
-                    points:90
-                },
-                {
-                    user_id:"mehm8128",
-                    points:80
-                },
-                {
-                    user_id:"mehm8128",
-                    points:70
-                },
-                {
-                    user_id:"mehm8128",
-                    points:60
-                },
-                {
-                    user_id:"mehm8128",
-                    points:60
-                },
-                {
-                    user_id:"mehm8128",
-                    points:60
-                },
-                {
-                    user_id:"mehm8128",
-                    points:60
-                },
-            ]
-            setData(res);
+            const res=await axios.get<RankingType[]>("http://localhost:8000/ranking")
+            setData(res.data);
         }
         fetch();
     },[])
