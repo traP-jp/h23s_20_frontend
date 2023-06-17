@@ -1,32 +1,32 @@
+import axios from 'axios'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
-import Setting from '@/components/setting'
-import styles from '@/styles/Home.module.css'
-import Ranking from '@/components/ranking'
-import UserID from '@/components/userID'
+import { useEffect, useState } from 'react'
+
 import Evaluation from '@/components/evaluation'
-import { Combobox,Pane } from 'evergreen-ui'
+import Ranking from '@/components/ranking'
+import Setting from '@/components/setting'
+import UserID from '@/components/userID'
+import styles from '@/styles/Home.module.css'
+
 import { User } from '../types/user'
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
-import axios from "axios"
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-	const  [userID, setUserID] = useState<User[]>([]);
+	const [userID, setUserID] = useState<User[]>([])
 
-    useEffect(()=>{
-        const fetch=async ()=>{
-            const res=await axios.get<User[]>("http://localhost:8000/users")
-            setUserID(res.data);
-        }
-        fetch();
-    },[])
-    
-    const userId = userID.map((item) => {
-        return item.id
-    });
+	useEffect(() => {
+		const fetch = async () => {
+			const res = await axios.get<User[]>('http://localhost:8000/users')
+			setUserID(res.data)
+		}
+		fetch()
+	}, [])
+
+	const userId = userID.map(item => {
+		return item.id
+	})
 
 	return (
 		<>
@@ -40,13 +40,10 @@ export default function Home() {
 				<div>
 					<Setting />
 					<Ranking />
-					<UserID  users={userId}/>
+					<UserID users={userId} />
 					<Evaluation />
 				</div>
 			</main>
-			
 		</>
 	)
 }
-
-

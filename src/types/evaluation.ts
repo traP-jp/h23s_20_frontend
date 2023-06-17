@@ -1,5 +1,5 @@
-export type PointType="one"|"three"|"five"
+export type PointType = 'one' | 'three' | 'five'
 
-export interface Evaluation{
-    point_type:PointType
+export interface Evaluation {
+	point_type: PointType
 }
