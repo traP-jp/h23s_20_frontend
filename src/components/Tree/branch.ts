@@ -10,26 +10,25 @@ export const branchDrawConstructor = (branchCount: number) => {
 			branchConstructor1(g)
 		}
 		if (7 <= branchCount) {
-			branchConstructor2(g)
+			branchConstructor(g, 1)
 		}
 		if (13 <= branchCount) {
-			branchConstructor3(g)
+			branchConstructor(g, 2)
 		}
 		if (19 <= branchCount) {
-			branchConstructor4(g)
+			branchConstructor(g, 3)
 		}
 		if (25 <= branchCount) {
-			branchConstructor5(g)
+			branchConstructor(g, 4)
 		}
-		console.log('topCount:', topCount)
 
 		//幹最上部
 		g.beginFill('#000000')
-		g.moveTo(-10, -topCount * TRUNC_LENGTH)
-		g.lineTo(10, -(topCount + 0.5) * TRUNC_LENGTH)
-		g.lineTo(10, -(topCount + 0.5) * TRUNC_LENGTH)
-		g.lineTo(-10, -topCount * TRUNC_LENGTH)
-		g.lineTo(-10, -topCount * TRUNC_LENGTH)
+		g.moveTo(-20, -topCount * TRUNC_LENGTH)
+		g.lineTo(20, Math.floor(-(topCount + 0.5) * TRUNC_LENGTH))
+		g.lineTo(20, Math.floor(-(topCount + 0.5) * TRUNC_LENGTH))
+		g.lineTo(-20, -topCount * TRUNC_LENGTH)
+		g.lineTo(-20, -topCount * TRUNC_LENGTH)
 		g.endFill()
 	}
 }
@@ -37,78 +36,27 @@ export const branchDrawConstructor = (branchCount: number) => {
 const branchConstructor1 = (g: PIXI.Graphics) => {
 	g.beginFill('#F2BA65')
 	//幹
-	g.moveTo(-10, 0)
-	g.lineTo(10, 0)
-	g.lineTo(10, -2 * TRUNC_LENGTH)
-	g.lineTo(-10, -2 * TRUNC_LENGTH)
-	g.lineTo(-10, 0)
+	g.moveTo(-20, 0)
+	g.lineTo(20, 0)
+	g.lineTo(20, -2 * TRUNC_LENGTH)
+	g.lineTo(-20, -2 * TRUNC_LENGTH)
+	g.lineTo(-20, 0)
 	g.endFill()
 }
 
-const branchConstructor2 = (g: PIXI.Graphics) => {
+const branchConstructor = (g: PIXI.Graphics, num: number) => {
 	g.beginFill('#F2BA65')
-	//幹2
-	g.moveTo(-10, -TRUNC_LENGTH)
-	g.lineTo(10, -TRUNC_LENGTH)
-	g.lineTo(10, -2 * TRUNC_LENGTH)
-	g.lineTo(-10, -2 * TRUNC_LENGTH)
-	g.lineTo(-10, -TRUNC_LENGTH)
+	//幹
+	g.moveTo(-20, -num * TRUNC_LENGTH)
+	g.lineTo(20, -num * TRUNC_LENGTH)
+	g.lineTo(20, -(num + 1) * TRUNC_LENGTH)
+	g.lineTo(-20, -(num + 1) * TRUNC_LENGTH)
+	g.lineTo(-20, -num * TRUNC_LENGTH)
 
-	//枝1
-	g.moveTo(-10, -TRUNC_LENGTH)
-	g.lineTo(-(1.5 * BRANCH_LENGTH + 10), -2 * TRUNC_LENGTH)
-	g.lineTo(-(1.5 * BRANCH_LENGTH - 2), -(2 * TRUNC_LENGTH + 20))
-	g.lineTo(-10, -(TRUNC_LENGTH + 30))
-	g.endFill()
-}
-
-const branchConstructor3 = (g: PIXI.Graphics) => {
-	g.beginFill('#F2BA65')
-	//幹3
-	g.moveTo(-10, -2 * TRUNC_LENGTH)
-	g.lineTo(10, -2 * TRUNC_LENGTH)
-	g.lineTo(10, -3 * TRUNC_LENGTH)
-	g.lineTo(-10, -3 * TRUNC_LENGTH)
-	g.lineTo(-10, -2 * TRUNC_LENGTH)
-
-	//枝2
-	g.moveTo(-10, -2 * TRUNC_LENGTH)
-	g.lineTo(1.5 * BRANCH_LENGTH + 10, -3 * TRUNC_LENGTH)
-	g.lineTo(1.5 * BRANCH_LENGTH - 2, -(3 * TRUNC_LENGTH + 20))
-	g.lineTo(-10, -(2 * TRUNC_LENGTH + 30))
-	g.endFill()
-}
-
-const branchConstructor4 = (g: PIXI.Graphics) => {
-	g.beginFill('#F2BA65')
-	//幹4
-	g.moveTo(-10, -3 * TRUNC_LENGTH)
-	g.lineTo(10, -3 * TRUNC_LENGTH)
-	g.lineTo(10, -4 * TRUNC_LENGTH)
-	g.lineTo(-10, -4 * TRUNC_LENGTH)
-	g.lineTo(-10, -3 * TRUNC_LENGTH)
-
-	//枝3
-	g.moveTo(-10, -3 * TRUNC_LENGTH)
-	g.lineTo(-(1.5 * BRANCH_LENGTH + 10), -4 * TRUNC_LENGTH)
-	g.lineTo(-(1.5 * BRANCH_LENGTH - 2), -(4 * TRUNC_LENGTH + 20))
-	g.lineTo(-10, -(3 * TRUNC_LENGTH + 30))
-	g.endFill()
-}
-
-const branchConstructor5 = (g: PIXI.Graphics) => {
-	g.beginFill('#F2BA65')
-	//幹4
-	g.moveTo(-10, -4 * TRUNC_LENGTH)
-	g.lineTo(10, -4 * TRUNC_LENGTH)
-	g.lineTo(10, -5 * TRUNC_LENGTH)
-	g.lineTo(-10, -5 * TRUNC_LENGTH)
-	g.lineTo(-10, -4 * TRUNC_LENGTH)
-
-	//枝3
-	g.moveTo(-10, -4 * TRUNC_LENGTH)
-	g.lineTo(1.5 * BRANCH_LENGTH + 10, -5 * TRUNC_LENGTH)
-	g.lineTo(1.5 * BRANCH_LENGTH - 2, -(5 * TRUNC_LENGTH + 20))
-	g.lineTo(-10, -(4 * TRUNC_LENGTH + 30))
+	//枝
+	g.moveTo(-10, -num * TRUNC_LENGTH)
+	g.lineTo((num % 2 ? -1 : 1) * (1.5 * BRANCH_LENGTH + 4), -(num + 1) * TRUNC_LENGTH)
+	g.lineTo((num % 2 ? -1 : 1) * (1.5 * BRANCH_LENGTH - 2), -((num + 1) * TRUNC_LENGTH + 14))
+	g.lineTo(-10, -(num * TRUNC_LENGTH + 20))
 	g.endFill()
 }

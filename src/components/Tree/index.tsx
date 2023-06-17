@@ -88,7 +88,7 @@ export default function Tree() {
 				preserveDrawingBuffer: true,
 			}}
 		>
-			<Graphics x={400 - 10} y={600} draw={branchDrawConstructor(30)} zIndex={5} />
+			<Graphics x={400 - 10} y={600} draw={branchDrawConstructor(14)} zIndex={5} />
 			{mockLeaves.map(leaf => (
 				<Graphics
 					x={400 - 10}
