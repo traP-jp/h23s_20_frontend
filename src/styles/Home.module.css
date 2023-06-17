@@ -3,18 +3,16 @@
 	src: url(/craftmincho.otf);
 }
 
-.total{
-    font-family: クラフト明朝;
-    /* font-size: 200%; */
-    text-shadow:1px 1px 0 #FFF, -1px -1px 0 #FFF,
-                -1px 1px 0 #FFF, 1px -1px 0 #FFF,
-                0px 1px 0 #FFF,  0-1px 0 #FFF,
-                -1px 0 0 #FFF, 1px 0 0 #FFF;
-    position: absolute;
-    color: 'black';
+.total {
+	font-family: クラフト明朝;
+	/* font-size: 200%; */
+	text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, -1px 1px 0 #fff, 1px -1px 0 #fff, 0px 1px 0 #fff,
+		0-1px 0 #fff, -1px 0 0 #fff, 1px 0 0 #fff;
+	position: absolute;
+	color: 'black';
 }
 
-.shareBtn{
-    position: absolute;
-    left: 90%;
+.shareBtn {
+	position: absolute;
+	left: 75%;
 }
