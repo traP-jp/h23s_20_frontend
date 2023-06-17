@@ -1,14 +1,30 @@
 import { Combobox,Pane } from 'evergreen-ui'
+import { User } from '../types/user'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router'
+import axios from "axios"
 
-export default function UserID() {
+export default function UserID({users}:{users:string[]}) {
+   
+    const router = useRouter()
+
+    const handleSelect=(userId:string)=>{
+    router.push(userId)
+    }
+
     return (
         <Pane position="fixed" top="60px" right="10px">
             <Combobox
             openOnFocus
-            items={['Banana', 'Orange', 'Apple', 'Mango']}
-            onChange={selected => console.log(selected)}
+            items={users}
+            onChange={(selected) => handleSelect(selected)}
             placeholder="userID"
             />
         </Pane>
     )
   }
+
+
+// page move ->
+// const router= useRouter()
+// router.push("sample.com/Orange")
