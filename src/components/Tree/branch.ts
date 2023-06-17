@@ -1,4 +1,3 @@
-import { b } from 'msw/lib/glossary-de6278a9'
 import * as PIXI from 'pixi.js'
 
 const TRUNC_LENGTH = 100
