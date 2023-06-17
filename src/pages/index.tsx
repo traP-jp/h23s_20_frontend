@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Button, toaster } from 'evergreen-ui'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
@@ -8,25 +9,50 @@ import Ranking from '@/components/ranking'
 import Setting from '@/components/setting'
 import UserID from '@/components/userID'
 import styles from '@/styles/Home.module.css'
+import { Tree } from '@/types/tree'
+import { User } from '@/types/user'
 
-import { User } from '../types/user'
+import { GetWindowSize as getWindowSize } from '../hooks/GetWindowSize'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const getRandomString = (n: number): string => {
+	const S = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+	return Array.from(crypto.getRandomValues(new Uint32Array(n)))
+		.map(v => S[v % S.length])
+		.join('')
+}
+
 export default function Home() {
 	const [userID, setUserID] = useState<User[]>([])
+	const { width, height } = getWindowSize()
+	const [data, setData] = useState<Tree[]>([])
+	const totalPoint = data.reduce((a, b) => a + b.point, 0)
 
 	useEffect(() => {
-		const fetch = async () => {
+		;(async () => {
 			const res = await axios.get<User[]>('http://localhost:8000/users')
 			setUserID(res.data)
-		}
-		fetch()
+			const res2 = await axios.get<Tree[]>('http://localhost:8000/userID/tree')
+			setData(res2.data)
+		})()
 	}, [])
 
 	const userId = userID.map(item => {
 		return item.id
 	})
+
+	const handleCopy = () => {
+		navigator.clipboard.writeText(`http://localhost:3000/userID/${getRandomString(16)}`).then(
+			function () {
+				toaster.success('共有リンクがクリップボードにコピーされました！')
+			},
+			function (err) {
+				toaster.warning('コピーに失敗しました')
+			},
+		)
+	}
 
 	return (
 		<>
@@ -43,6 +69,17 @@ export default function Home() {
 					<UserID users={userId} />
 					<Evaluation />
 				</div>
+				<div
+					className={styles.total}
+					style={{
+						fontSize: `${width / 6}%`,
+					}}
+				>
+					{totalPoint}pt
+				</div>
+				<Button className={styles.shareBtn} onClick={handleCopy}>
+					Share
+				</Button>
 			</main>
 		</>
 	)
