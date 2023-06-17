@@ -50,15 +50,16 @@ export default function Tree({ tree }: { tree: TreeType[] }) {
 			}}
 		>
 			<Graphics x={400 - 10} y={600} draw={branchDrawConstructor(14)} zIndex={5} />
-			{tree[0].leaves.map(leaf => (
-				<Graphics
-					x={400 - 10}
-					y={600}
-					draw={leafDrawConstructor(leaf)}
-					key={`${leaf.x}${leaf.y}`}
-					zIndex={calcZIndex(leaf)}
-				/>
-			))}
+			{tree[0] &&
+				tree[0].leaves.map(leaf => (
+					<Graphics
+						x={400 - 10}
+						y={600}
+						draw={leafDrawConstructor(leaf)}
+						key={`${leaf.x}${leaf.y}`}
+						zIndex={calcZIndex(leaf)}
+					/>
+				))}
 		</Stage>
 	)
 }

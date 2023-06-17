@@ -5,25 +5,24 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import { useGetWindowSize } from '@/hooks/useGetWindowSize'
 import styles from '@/styles/ranking.module.css'
 import { Ranking as RankingType } from '@/types/ranking'
-
-import { GetWindowSize as getWindowSize } from '../hooks/useGetWindowSize'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Ranking() {
-	const { height, width } = getWindowSize()
+	const { height, width } = useGetWindowSize()
 
 	const top = [28, 17, 31, 12, 68, 74, 68, 66]
 	const left = [18, 42, 63.5, 84.5, 17, 33, 66, 90]
 
-	const [data, setData] = useState<RankingType[]>()
+	const [ranking, setRanking] = useState<RankingType[]>([])
 
 	useEffect(() => {
 		const fetch = async () => {
 			const res = await axios.get<RankingType[]>('http://localhost:8000/ranking')
-			setData(res.data)
+			setRanking(res.data)
 		}
 		fetch()
 	}, [])
@@ -44,32 +43,30 @@ export default function Ranking() {
 					height={height}
 					width={width}
 				/>
-				{!data
-					? 0
-					: data.map((item, index) => (
-							<div
-								className={styles.ranking}
-								style={{
-									top: `${top[index]}%`,
-									left: `${left[index]}%`,
-									fontSize: `${width / 6}%`,
-								}}
-								id={'rank' + (index + 1)}
-								key={item.user_id}
-							>
-								<div className='img'>
-									<Image
-										className={styles.rankImg}
-										src={'/rank' + (index + 1) + '.png'}
-										alt={'rank ' + (index + 1)}
-										height={((width / 20) * 96) / 110}
-										width={width / 20}
-									/>
-								</div>
-								<div className='id'>{item.user_id}</div>
-								<div className='point'>{item.points}pt</div>
-							</div>
-					  ))}
+				{ranking.map((item, index) => (
+					<div
+						className={styles.ranking}
+						style={{
+							top: `${top[index]}%`,
+							left: `${left[index]}%`,
+							fontSize: `${width / 6}%`,
+						}}
+						id={'rank' + (index + 1)}
+						key={item.user_id}
+					>
+						<div className='img'>
+							<Image
+								className={styles.rankImg}
+								src={'/rank' + (index + 1) + '.png'}
+								alt={'rank ' + (index + 1)}
+								height={((width / 20) * 96) / 110}
+								width={width / 20}
+							/>
+						</div>
+						<div className='id'>{item.user_id}</div>
+						<div className='point'>{item.points}pt</div>
+					</div>
+				))}
 
 				<Link className={styles.btn} href='./'>
 					<Image

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { Button, toaster } from 'evergreen-ui'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
@@ -30,20 +30,6 @@ export default function Home() {
 	const { width, height } = useGetWindowSize()
 	const totalPoint = myTree.reduce((a, b) => a + b.point, 0)
 
-	useEffect(() => {
-		;(async () => {
-			const usersPromise = axios.get<User[]>('http://localhost:8000/users')
-			const treePromise = axios.get<TreeType[]>('http://localhost:8000/userID/tree')
-			const promises: [
-				Promise<AxiosResponse<User[], any>>,
-				Promise<AxiosResponse<TreeType[], any>>,
-			] = [usersPromise, treePromise]
-			const [usersRes, treeRes] = await Promise.all(promises)
-			setUsers(usersRes.data)
-			setMyTree(treeRes.data)
-		})()
-	}, [])
-
 	const userIds = users.map(user => {
 		return user.id
 	})
@@ -58,6 +44,18 @@ export default function Home() {
 			},
 		)
 	}
+
+	useEffect(() => {
+		;(async () => {
+			const usersRes = await axios.get<User[]>('http://localhost:8000/users')
+			const treeRes = await axios.get<TreeType[]>('http://localhost:8000/userID/tree')
+			// todo: Promise.all使うとバグる
+			setUsers(usersRes.data)
+			setMyTree(treeRes.data)
+		})()
+	}, [])
+
+	console.log(myTree)
 
 	return (
 		<>
