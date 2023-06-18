@@ -5,6 +5,8 @@ import { useRecoilState } from 'recoil'
 import { meState } from '@/stores/user'
 import { User } from '@/types/user'
 
+import { getApiOrigin } from '../../env'
+
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [me, setMe] = useRecoilState(meState)
 
@@ -12,10 +14,10 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 		if (me.id) return
 		;(async () => {
 			try {
-				const me: User = await axios.get('http://localhost:8000')
+				const me: User = await axios.get(`${getApiOrigin()}/me`, { withCredentials: true })
 				setMe(me)
 			} catch {
-				location.href = `http://localhost:8000/authorize`
+				location.href = `${getApiOrigin()}/auth`
 			}
 		})()
 	}, [me, setMe])

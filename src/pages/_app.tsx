@@ -3,14 +3,11 @@ import Head from 'next/head'
 import { RecoilRoot } from 'recoil'
 
 import AuthProvider from '@/components/AuthProvider'
-import { initMock } from '@/mocks/main'
 import '@/styles/globals.css'
 
 import type { AppProps } from 'next/app'
 
 const inter = Inter({ subsets: ['latin'] })
-
-initMock()
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (

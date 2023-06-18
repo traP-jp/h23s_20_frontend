@@ -1,18 +1,27 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+import { getApiOrigin } from '../../env'
 
 export default function Callback() {
 	const router = useRouter()
-	const code = router.query.code as string
+	const [code, setCode] = useState('')
 
 	useEffect(() => {
+		if (!router.isReady) return
+		setCode(router.query.code as string)
+	}, [router.isReady, router.query.code])
+
+	useEffect(() => {
+		if (!code) return
 		;(async () => {
-			await axios.get(`http://localhost:8000/callback?code=${code}`, {
+			const res = await axios.get(`${getApiOrigin()}/callback?code=${code}`, {
 				withCredentials: true,
 			})
+			console.log(res.data)
 			router.push('/')
 		})()
-	}, [])
+	}, [code])
 	return null
 }

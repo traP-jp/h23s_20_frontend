@@ -27,7 +27,7 @@ export default function UserTree() {
 			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/${userId}/tree`)
 			setTrees(treeRes.data)
 		})()
-	}, [])
+	}, [userId])
 
 	return (
 		<div className={styles.container}>
