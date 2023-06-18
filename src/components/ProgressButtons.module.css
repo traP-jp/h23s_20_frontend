@@ -1,0 +1,126 @@
+.button1 {
+    animation-name: slideIn1;
+    animation-duration: 100ms;
+    animation-fill-mode:both;
+    animation-timing-function:ease-out;
+    animation-delay:0s;
+}
+
+@keyframes slideIn1{
+from{
+  position: fixed;
+  bottom:50px;
+  right: 50px;
+}
+to{
+  position:fixed;
+  bottom:50px;
+  right:200px;
+}
+}
+
+.button3 {
+  animation-name: slideIn3;
+  animation-duration: 100ms;
+  animation-fill-mode:both;
+  animation-timing-function:ease-out;
+  animation-delay:0s;
+}
+
+@keyframes slideIn3{
+from{
+position: fixed;
+bottom:50px;
+right: 50px;
+}
+to{
+position:fixed;
+bottom:140px;
+right:140px;
+}
+}
+
+.button5 {
+  animation-name: slideIn5;
+  animation-duration: 100ms;
+  animation-fill-mode:both;
+  animation-timing-function:ease-out;
+  animation-delay:0s;
+}
+
+@keyframes slideIn5{
+from{
+position: fixed;
+bottom:50px;
+right: 50px;
+}
+to{
+position:fixed;
+bottom:200px;
+right:50px;
+}
+}
+
+.number1 {
+  animation-name: number1;
+  animation-duration: 100ms;
+  animation-fill-mode:both;
+  animation-timing-function:ease-out;
+  animation-delay:0s;
+}
+
+@keyframes number1{
+from{
+position: fixed;
+bottom:50px;
+right: 50px;
+}
+to{
+position:fixed;
+bottom:50px;
+right: 200px;
+}
+}
+
+.number3 {
+  animation-name: number3;
+  animation-duration: 100ms;
+  animation-fill-mode:both;
+  animation-timing-function:ease-out;
+  animation-delay:0s;
+}
+
+@keyframes number3{
+from{
+position: fixed;
+bottom:50px;
+right: 50px;
+}
+to{
+position:fixed;
+bottom:140px;
+right:140px;
+}
+}
+
+.number5 {
+  animation-name: number5;
+  animation-duration: 100ms;
+  animation-fill-mode:both;
+  animation-timing-function:ease-out;
+  animation-delay:0s;
+}
+
+@keyframes number5{
+from{
+position: fixed;
+bottom:50px;
+right: 50px;
+}
+to{
+position:fixed;
+bottom:200px;
+right:50px;
+}
+}
+ 
