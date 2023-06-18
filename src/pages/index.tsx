@@ -39,7 +39,7 @@ export default function Home() {
 
 	const handleCopy = () => {
 		navigator.clipboard
-			.writeText(`https://h23s-20-frontend.vercel.app/${meId}/${getRandomString(16)}`)
+			.writeText(`https://h23s-20-frontend.vercel.app/${meId}?id=${getRandomString(16)}`)
 			.then(
 				// todo:host
 				function () {

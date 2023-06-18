@@ -24,7 +24,7 @@ export default function UserTree() {
 	useEffect(() => {
 		if (!userId) return
 		;(async () => {
-			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/${userId}/tree`, {
+			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/${userId}/trees`, {
 				withCredentials: true,
 			})
 			setTrees(treeRes.data)
