@@ -80,7 +80,7 @@ export default function SettingModal({
 						color: 'red',
 					}}
 				>
-					progressチェンネルから取ってきます
+					progressチャンネルから取ってきます
 				</div>
 
 				<div style={{ lineHeight: 5 }}>
