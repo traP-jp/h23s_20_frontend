@@ -44,7 +44,7 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 	const baseCoodinates = Array(trees.length)
 		.fill(0)
 		.map((_, index) =>
-			index === 0 ? { x: 390, y: 600 } : { x: getRandomArbitrary(0, 400), y: 500 },
+			index === trees.length - 1 ? { x: 390, y: 600 } : { x: getRandomArbitrary(0, 800), y: 500 },
 		)
 
 	if (trees.length === 0) return <></>
@@ -65,17 +65,23 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 							x={baseCoodinates[index].x}
 							y={baseCoodinates[index].y}
 							draw={branchDrawConstructor(trees[index].branch_count)}
-							zIndex={(trees.length - index + 1) * 5} // fixme: 30未満のやつを一番う前、それ以外を後ろの方にやりたい。toReveresedを使ってさらにbaseCoodinateSの条件を逆にしたりすると上手くいきそう。30に満たないものが配列の最初にくるか最後にくるかで話が変わる
 						/>
-						{tree.leaves.map(leaf => (
-							<Graphics
-								x={baseCoodinates[index].x}
-								y={baseCoodinates[index].y}
-								draw={leafDrawConstructor(leaf)}
-								key={`${leaf.x}${leaf.y}`}
-								zIndex={calcZIndex(leaf)}
-							/>
-						))}
+						{tree.leaves
+							.toSorted((a, b) => {
+								const aZIndex = calcZIndex(a)
+								const bZIndex = calcZIndex(b)
+								if (aZIndex > bZIndex) return 1
+								if (aZIndex < bZIndex) return -1
+								return 0
+							})
+							.map(leaf => (
+								<Graphics
+									x={baseCoodinates[index].x}
+									y={baseCoodinates[index].y}
+									draw={leafDrawConstructor(leaf)}
+									key={`${leaf.x}${leaf.y}`}
+								/>
+							))}
 					</>
 				)
 			})}
