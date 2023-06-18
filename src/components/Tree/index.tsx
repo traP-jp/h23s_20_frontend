@@ -47,7 +47,6 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 			index === 0 ? { x: 390, y: 600 } : { x: getRandomArbitrary(0, 400), y: 500 },
 		)
 
-	console.log(baseCoodinates)
 	if (trees.length === 0) return <></>
 
 	return (
