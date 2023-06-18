@@ -66,15 +66,15 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 							y={baseCoodinates[index].y}
 							draw={branchDrawConstructor(trees[index].branch_count)}
 						/>
-						{tree.leaves
-							.toSorted((a, b) => {
+						{tree.leaves // @ts-ignore
+							.toSorted((a: Leaf, b: Leaf) => {
 								const aZIndex = calcZIndex(a)
 								const bZIndex = calcZIndex(b)
 								if (aZIndex > bZIndex) return 1
 								if (aZIndex < bZIndex) return -1
 								return 0
 							})
-							.map(leaf => (
+							.map((leaf: Leaf) => (
 								<Graphics
 									x={baseCoodinates[index].x}
 									y={baseCoodinates[index].y}
