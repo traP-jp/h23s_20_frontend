@@ -55,6 +55,15 @@ export default function Home() {
 		})()
 	}, [])
 
+	const handleClick = () => {
+		const canvas = document.getElementsByTagName('canvas')[0]
+		if (!canvas) return
+		const png = canvas.toDataURL()
+		const data = new FormData()
+		data.append(`treePng`, png)
+		axios.post(`${getApiOrigin()}/image`, data)
+	}
+
 	return (
 		<div>
 			<div className={styles.topTools}>
