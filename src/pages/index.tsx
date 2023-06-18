@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Button, toaster, SettingsIcon, ShareIcon } from 'evergreen-ui'
 import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 import ProgressButtons from '@/components/ProgressButtons'
 import SearchComboBox from '@/components/SearchComboBox'
@@ -8,11 +9,10 @@ import SettingModal from '@/components/SettingModal'
 import ToRankingButton from '@/components/ToRankingButton'
 import Tree from '@/components/Tree'
 import { useGetWindowSize } from '@/hooks/useGetWindowSize'
+import { meState } from '@/stores/user'
 import styles from '@/styles/Home.module.css'
 import { Tree as TreeType } from '@/types/tree'
 import { User } from '@/types/user'
-import { useRecoilValue } from 'recoil'
-import { meState } from '@/stores/user'
 
 import { getApiOrigin } from '../../env'
 
@@ -29,6 +29,7 @@ export default function Home() {
 	const [myTrees, setMyTrees] = useState<TreeType[]>([])
 	const [users, setUsers] = useState<User[]>([])
 	const { width, height } = useGetWindowSize()
+	const me = useRecoilValue(meState)
 	const meId = useRecoilValue(meState).traq_id
 	const totalPoint = myTrees.reduce((a, b) => a + b.point, 0)
 
@@ -49,16 +50,18 @@ export default function Home() {
 	}
 
 	useEffect(() => {
+		console.log(me)
+		if (!meId) return
 		;(async () => {
 			const usersRes = await axios.get<User[]>(`${getApiOrigin()}/users`, { withCredentials: true })
-			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/${meId}/tree`, {
+			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/${meId}/trees`, {
 				withCredentials: true,
 			})
 			// todo: Promise.all使うとバグる
 			setUsers(usersRes.data)
 			setMyTrees(treeRes.data)
 		})()
-	}, [])
+	}, [meId])
 
 	const handleClick = () => {
 		const canvas = document.getElementsByTagName('canvas')[0]

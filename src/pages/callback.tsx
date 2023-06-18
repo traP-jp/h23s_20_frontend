@@ -19,7 +19,6 @@ export default function Callback() {
 			const res = await axios.get(`${getApiOrigin()}/callback?code=${code}`, {
 				withCredentials: true,
 			})
-			console.log(res.data)
 			router.push('/')
 		})()
 	}, [code])

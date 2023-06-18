@@ -14,7 +14,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 		if (me.traq_id) return
 		;(async () => {
 			try {
-				const me: User = await axios.get(`${getApiOrigin()}/me`, { withCredentials: true })
+				const me: User = (await axios.get(`${getApiOrigin()}/me`, { withCredentials: true })).data
 				setMe(me)
 			} catch {
 				location.href = `${getApiOrigin()}/auth`

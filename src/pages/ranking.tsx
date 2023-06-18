@@ -49,7 +49,7 @@ export default function Ranking() {
 							fontSize: `${width / 6}%`,
 						}}
 						id={'rank' + (index + 1)}
-						key={item.user_id}
+						key={item.traq_id}
 					>
 						<div className='img'>
 							<Image
@@ -60,8 +60,8 @@ export default function Ranking() {
 								width={width / 20}
 							/>
 						</div>
-						<div className='id'>{item.user_id}</div>
-						<div className='point'>{item.points}pt</div>
+						<div className='id'>{item.traq_id}</div>
+						<div className='point'>{item.total_point}pt</div>
 					</div>
 				))}
 
