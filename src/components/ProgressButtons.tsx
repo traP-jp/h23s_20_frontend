@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 
 import { PointType, Progress as ProgressType } from '@/types/progress'
 
+import { getApiOrigin } from '../../env'
+
 import styles from './ProgressButtons.module.css'
 
 export default function ProgressButtons() {
@@ -12,7 +14,7 @@ export default function ProgressButtons() {
 		const requestData: ProgressType = {
 			point_type: type,
 		}
-		const res = await axios.put('http://localhost:8000/points', requestData)
+		const res = await axios.put(`${getApiOrigin()}/points`, requestData)
 	}
 	const toggle = () => {
 		setHideButton(!hideButton)
