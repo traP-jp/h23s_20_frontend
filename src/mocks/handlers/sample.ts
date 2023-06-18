@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 
 export const sampleHanlders = (apiOrigin: string) => {
-	const sample = rest.get(`${apiOrigin}/sample`, (req, res, ctx) => {
+	const sample = rest.get(`${apiOrigin}/me/config`, (req, res, ctx) => {
 		return res(
 			ctx.status(200),
 			ctx.json({
