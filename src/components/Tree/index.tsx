@@ -6,6 +6,11 @@ import { branchDrawConstructor } from '@/components/Tree/branch'
 import { getRandomArbitrary } from '@/mocks/handlers/utils'
 import { Leaf, Tree as TreeType } from '@/types/tree'
 
+const baseCoodinates = Array(3)
+	.fill(0)
+	.map((_, index) =>
+		index === 3 - 1 ? { x: 390, y: 600 } : { x: getRandomArbitrary(0, 800), y: 500 },
+	)
 export default function Tree({ trees }: { trees: TreeType[] }) {
 	const leafDrawConstructor = (leaf: Leaf) => {
 		const leafData = {
@@ -60,12 +65,6 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 				return 10
 		}
 	}
-
-	const baseCoodinates = Array(trees.length)
-		.fill(0)
-		.map((_, index) =>
-			index === trees.length - 1 ? { x: 390, y: 600 } : { x: getRandomArbitrary(0, 800), y: 500 },
-		)
 
 	if (trees.length === 0) return <></>
 

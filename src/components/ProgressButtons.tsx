@@ -11,12 +11,13 @@ import { getApiOrigin } from '../../env'
 
 import styles from './ProgressButtons.module.css'
 
-export default function ProgressButtons() {
+export default function ProgressButtons({ onClick }: { onClick: (tyope: PointType) => void }) {
 	const buttonPush = async (type: PointType) => {
 		const requestData: ProgressType = {
 			point_type: type,
 		}
 		const res = await axios.post(`${getApiOrigin()}/points`, requestData, { withCredentials: true })
+		onClick(type)
 	}
 	const [TranslateButton, setTranslateButton] = useState(false)
 

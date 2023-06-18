@@ -9,8 +9,10 @@ import SettingModal from '@/components/SettingModal'
 import ToRankingButton from '@/components/ToRankingButton'
 import Tree from '@/components/Tree'
 import { useGetWindowSize } from '@/hooks/useGetWindowSize'
+import { getRandomArbitrary, getRandomColor } from '@/mocks/handlers/utils'
 import { meState } from '@/stores/user'
 import styles from '@/styles/Home.module.css'
+import { PointType } from '@/types/progress'
 import { Tree as TreeType } from '@/types/tree'
 import { User } from '@/types/user'
 
@@ -49,6 +51,27 @@ export default function Home() {
 					toaster.warning('コピーに失敗しました')
 				},
 			)
+	}
+
+	const handleAddLeaves = (type: PointType) => {
+		const point = type === 'one' ? 1 : type === 'three' ? 3 : 5
+		const newTree: TreeType[] = [
+			...myTrees.slice(0, myTrees.length - 1),
+			{
+				...myTrees[myTrees.length - 1],
+				leaves: myTrees[myTrees.length - 1].leaves.concat(
+					Array(point)
+						.fill(null)
+						.map(() => ({
+							x: getRandomArbitrary(-200, 200),
+							y: getRandomArbitrary(200, 800),
+							color: getRandomColor(),
+							size: 'middle',
+						})),
+				),
+			},
+		]
+		setMyTrees(newTree)
 	}
 
 	useEffect(() => {
@@ -101,7 +124,7 @@ export default function Home() {
 			<div className={styles.tree}>
 				<Tree trees={myTrees} />
 			</div>
-			<ProgressButtons />
+			<ProgressButtons onClick={handleAddLeaves} />
 		</div>
 	)
 }
