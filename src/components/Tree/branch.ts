@@ -34,14 +34,14 @@ export const branchDrawConstructor = (branchCount: number, leavesCount: number) 
 }
 
 const branchConstructor1 = (g: PIXI.Graphics, b: number) => {
-	//if (b === 14) {
-	g.beginFill('#F2BA65')
-	// if (b !== 30) {
-	// 	g.lineStyle(1, '#FF0000')
-	// }
-	// } else {
-	// 	g.beginFill('#000000')
-	// }
+	if (b !== 30) {
+		g.beginFill('#cc9d56')
+		//if (b !== 30) {
+		// 	g.lineStyle(1, '#FF0000')
+		//}
+	} else {
+		g.beginFill('#F2BA65')
+	}
 	//幹
 	g.moveTo(-20, 0)
 	g.lineTo(20, 0)
@@ -52,14 +52,14 @@ const branchConstructor1 = (g: PIXI.Graphics, b: number) => {
 }
 
 const branchConstructor = (g: PIXI.Graphics, num: number, b: number) => {
-	//if (b === 14) {
-	g.beginFill('#F2BA65')
-	// if (b !== 30) {
-	// 	g.lineStyle(1, '#FF0000')
-	// }
-	// } else {
-	// 	g.beginFill('#000000')
-	// }
+	if (b !== 30) {
+		g.beginFill('#cc9d56')
+		// if (b !== 30) {
+		// 	g.lineStyle(1, '#FF0000')
+		// }
+	} else {
+		g.beginFill('#F2BA65')
+	}
 	//幹
 	g.moveTo(-20, -num * TRUNC_LENGTH)
 	g.lineTo(20, -num * TRUNC_LENGTH)
