@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Inter } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -9,8 +8,6 @@ import styles from '@/styles/Ranking.module.css'
 import { Ranking as RankingType } from '@/types/ranking'
 
 import { getApiOrigin } from '../../env'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Ranking() {
 	const { height, width } = useGetWindowSize()
@@ -32,7 +29,7 @@ export default function Ranking() {
 
 	return (
 		<>
-			<main className={`${styles.main} ${inter.className}`}>
+			<div className={`${styles.main}`}>
 				<img
 					className={styles.background}
 					src='/background.png'
@@ -74,7 +71,7 @@ export default function Ranking() {
 						width={height / 6 > ((width / 6) * 357) / 551 ? width / 6 : ((height / 6) * 551) / 357}
 					/>
 				</Link>
-			</main>
+			</div>
 		</>
 	)
 }
