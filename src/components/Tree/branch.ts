@@ -34,11 +34,11 @@ export const branchDrawConstructor = (branchCount: number) => {
 }
 
 const branchConstructor1 = (g: PIXI.Graphics, b: number) => {
-	if (b === 14) {
+	//if (b === 14) {
 		g.beginFill('#F2BA65')
-	} else {
-		g.beginFill('#000000')
-	}
+	// } else {
+	// 	g.beginFill('#000000')
+	// }
 	//幹
 	g.moveTo(-20, 0)
 	g.lineTo(20, 0)
@@ -49,11 +49,11 @@ const branchConstructor1 = (g: PIXI.Graphics, b: number) => {
 }
 
 const branchConstructor = (g: PIXI.Graphics, num: number, b: number) => {
-	if (b === 14) {
+	//if (b === 14) {
 		g.beginFill('#F2BA65')
-	} else {
-		g.beginFill('#000000')
-	}
+	// } else {
+	// 	g.beginFill('#000000')
+	// }
 	//幹
 	g.moveTo(-20, -num * TRUNC_LENGTH)
 	g.lineTo(20, -num * TRUNC_LENGTH)
