@@ -6,36 +6,36 @@ export const rankingHanlders = (apiOrigin: string) => {
 			ctx.status(200),
 			ctx.json([
 				{
-					user_id: 'mehm8128',
-					points: 100,
+					traq_id: 'mehm8128',
+					total_point: 100,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 90,
+					traq_id: 'mehm8128',
+					total_point: 90,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 80,
+					traq_id: 'mehm8128',
+					total_point: 80,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 70,
+					traq_id: 'mehm8128',
+					total_point: 70,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 60,
+					traq_id: 'mehm8128',
+					total_point: 60,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 60,
+					traq_id: 'mehm8128',
+					total_point: 60,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 60,
+					traq_id: 'mehm8128',
+					total_point: 60,
 				},
 				{
-					user_id: 'mehm8128',
-					points: 60,
+					traq_id: 'mehm8128',
+					total_point: 60,
 				},
 			]),
 		)
