@@ -5,6 +5,6 @@ import { User } from '@/types/user'
 export const meState = atom<User>({
 	key: 'meState',
 	default: {
-		id: '',
+		traq_id: '',
 	},
 })

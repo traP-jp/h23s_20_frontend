@@ -11,6 +11,8 @@ import { useGetWindowSize } from '@/hooks/useGetWindowSize'
 import styles from '@/styles/Home.module.css'
 import { Tree as TreeType } from '@/types/tree'
 import { User } from '@/types/user'
+import { useRecoilValue } from 'recoil'
+import { meState } from '@/stores/user'
 
 import { getApiOrigin } from '../../env'
 
@@ -27,10 +29,11 @@ export default function Home() {
 	const [myTrees, setMyTrees] = useState<TreeType[]>([])
 	const [users, setUsers] = useState<User[]>([])
 	const { width, height } = useGetWindowSize()
+	const meId = useRecoilValue(meState).traq_id
 	const totalPoint = myTrees.reduce((a, b) => a + b.point, 0)
 
 	const userIds = users.map(user => {
-		return user.id
+		return user.traq_id
 	})
 
 	const handleCopy = () => {
@@ -47,8 +50,10 @@ export default function Home() {
 
 	useEffect(() => {
 		;(async () => {
-			const usersRes = await axios.get<User[]>(`${getApiOrigin()}/users`)
-			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/userID/tree`)
+			const usersRes = await axios.get<User[]>(`${getApiOrigin()}/users`, { withCredentials: true })
+			const treeRes = await axios.get<TreeType[]>(`${getApiOrigin()}/${meId}/tree`, {
+				withCredentials: true,
+			})
 			// todo: Promise.all使うとバグる
 			setUsers(usersRes.data)
 			setMyTrees(treeRes.data)

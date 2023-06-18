@@ -11,7 +11,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 	const [me, setMe] = useRecoilState(meState)
 
 	useEffect(() => {
-		if (me.id) return
+		if (me.traq_id) return
 		;(async () => {
 			try {
 				const me: User = await axios.get(`${getApiOrigin()}/me`, { withCredentials: true })
@@ -20,7 +20,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 				location.href = `${getApiOrigin()}/auth`
 			}
 		})()
-	}, [me, setMe])
+	}, [setMe])
 
 	return children
 }

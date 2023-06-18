@@ -14,7 +14,7 @@ export default function ProgressButtons() {
 		const requestData: ProgressType = {
 			point_type: type,
 		}
-		const res = await axios.put(`${getApiOrigin()}/points`, requestData)
+		const res = await axios.put(`${getApiOrigin()}/points`, requestData, { withCredentials: true })
 	}
 	const toggle = () => {
 		setHideButton(!hideButton)

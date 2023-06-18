@@ -22,7 +22,9 @@ export default function Ranking() {
 
 	useEffect(() => {
 		const fetch = async () => {
-			const res = await axios.get<RankingType[]>(`${getApiOrigin()}/ranking`)
+			const res = await axios.get<RankingType[]>(`${getApiOrigin()}/ranking`, {
+				withCredentials: true,
+			})
 			setRanking(res.data)
 		}
 		fetch()
