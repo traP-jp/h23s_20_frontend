@@ -2,12 +2,15 @@ import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { RecoilRoot } from 'recoil'
 
-import AuthProvider from '@/components/AuthProvider'
 import '@/styles/globals.css'
+
+import { initMock } from '@/mocks/main'
 
 import type { AppProps } from 'next/app'
 
 const inter = Inter({ subsets: ['latin'] })
+
+initMock()
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
@@ -20,9 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			</Head>
 			<main className={inter.className}>
 				<RecoilRoot>
-					<AuthProvider>
-						<Component {...pageProps} />
-					</AuthProvider>
+					<Component {...pageProps} />
 				</RecoilRoot>
 			</main>
 		</>

@@ -52,7 +52,6 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		console.log(me)
 		if (!meId) return
 		;(async () => {
 			const usersRes = await axios.get<User[]>(`${getApiOrigin()}/users`, { withCredentials: true })
