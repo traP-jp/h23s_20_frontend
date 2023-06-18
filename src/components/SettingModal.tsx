@@ -27,7 +27,7 @@ export default function SettingModal({
 			github_point_type: githubPoint,
 			atcoder_point_type: atcoderPoint,
 		}
-		const res = await axios.put(`${getApiOrigin()}/me/config`, requestData)
+		const res = await axios.put(`${getApiOrigin()}/me`, requestData)
 	}
 	return (
 		<Dialog
