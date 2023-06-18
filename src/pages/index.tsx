@@ -59,6 +59,15 @@ export default function Home() {
 		})()
 	}, [])
 
+	const handleClick = () => {
+		const canvas = document.getElementsByTagName('canvas')[0]
+		if (!canvas) return
+		const png = canvas.toDataURL()
+		const data = new FormData()
+		data.append(`treePng`, png)
+		axios.post(`${getApiOrigin()}/image`, data)
+	}
+
 	return (
 		<>
 			<Head>
@@ -93,6 +102,7 @@ export default function Home() {
 				</div>
 				<div className={styles.tree}>
 					<Tree tree={myTree} />
+					<button onClick={handleClick}>aaa</button>
 				</div>
 				<ProgressButtons />
 			</main>
