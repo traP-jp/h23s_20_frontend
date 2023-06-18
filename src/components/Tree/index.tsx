@@ -1,5 +1,6 @@
 import { Stage, Graphics } from '@pixi/react'
 import * as PIXI from 'pixi.js'
+import { Fragment } from 'react'
 
 import { branchDrawConstructor } from '@/components/Tree/branch'
 import { getRandomArbitrary } from '@/mocks/handlers/utils'
@@ -13,15 +14,34 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 		}
 		return (g: PIXI.Graphics) => {
 			g.beginFill(leafData.color)
+			g.lineStyle(1, getLeafBorderColor(leafData))
 			g.moveTo(leafData.x - 50, leafData.y - 50)
-			g.lineTo(leafData.x + 50, leafData.y - 50)
 			g.lineTo(leafData.x + 50, leafData.y - 50)
 			g.lineTo(leafData.x + 50, leafData.y + 50)
 			g.lineTo(leafData.x - 50, leafData.y + 50)
+			g.lineTo(leafData.x - 50, leafData.y - 50)
 			g.endFill()
 		}
 	}
 
+	const getLeafBorderColor = (leaf: Leaf) => {
+		switch (leaf.color) {
+			case '#C9FF9F':
+				return '#A2F6A0'
+			case '#A2F6A0':
+				return '#94E093'
+			case '#94E093':
+				return '#87cc85'
+			case '#FDA9FF':
+				return '#e69be8'
+			case '#A8F9EF':
+				return '#99e4db'
+			case '#FFA3A3':
+				return '#dc8c8c'
+			default:
+				return '#000000'
+		}
+	}
 	const calcZIndex = (leaf: Leaf) => {
 		switch (leaf.color) {
 			case '#C9FF9F':
@@ -60,11 +80,11 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 		>
 			{trees.map((tree, index) => {
 				return (
-					<>
+					<Fragment key={index}>
 						<Graphics
 							x={baseCoodinates[index].x}
 							y={baseCoodinates[index].y}
-							draw={branchDrawConstructor(trees[index].branch_count)}
+							draw={branchDrawConstructor(trees[index].branch_count, trees[index].leaves.length)}
 						/>
 						{tree.leaves // @ts-ignore
 							.toSorted((a: Leaf, b: Leaf) => {
@@ -82,7 +102,7 @@ export default function Tree({ trees }: { trees: TreeType[] }) {
 									key={`${leaf.x}${leaf.y}`}
 								/>
 							))}
-					</>
+					</Fragment>
 				)
 			})}
 		</Stage>
