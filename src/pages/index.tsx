@@ -38,15 +38,17 @@ export default function Home() {
 	})
 
 	const handleCopy = () => {
-		navigator.clipboard.writeText(`http://localhost:3000/userID/${getRandomString(16)}`).then(
-			// todo:host
-			function () {
-				toaster.success('共有リンクがクリップボードにコピーされました！')
-			},
-			function (err) {
-				toaster.warning('コピーに失敗しました')
-			},
-		)
+		navigator.clipboard
+			.writeText(`https://h23s-20-frontend.vercel.app/${meId}/${getRandomString(16)}`)
+			.then(
+				// todo:host
+				function () {
+					toaster.success('共有リンクがクリップボードにコピーされました！')
+				},
+				function (err) {
+					toaster.warning('コピーに失敗しました')
+				},
+			)
 	}
 
 	useEffect(() => {
